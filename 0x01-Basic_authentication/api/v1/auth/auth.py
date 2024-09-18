@@ -6,6 +6,7 @@ app = Flask(__name__)
 
 
 class Auth:
+    """ Auth class """
     def __init__(self):
         pass
 
