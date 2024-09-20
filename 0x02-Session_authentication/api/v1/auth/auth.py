@@ -39,3 +39,11 @@ class Auth:
     def current_user(self, request=None) -> str:
         """ Current user """
         return None
+
+    def session_cookie(self, request=None) -> str:
+        """ Session cookie """
+        if request is None:
+            return None
+        if request.cookies.get('_my_session_id') is None:
+            return None
+        return request.cookies.get('_my_session_id')
