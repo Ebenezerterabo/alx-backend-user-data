@@ -55,11 +55,13 @@ class DB:
         """
         # Find the user by ID
         user = self.find_user_by(id=user_id)
+        # Get all the attributes of the user
+        valid_attrs = set(User.__table__.columns.keys())
         # Update the user's attributes
         for key, value in kwargs.items():
-            if key not in ("id",):
-                setattr(user, key, value)
-            if key is None:
+            if key not in valid_attrs:
                 raise ValueError
+            if key != "id":  # Avoid updating the id
+                setattr(user, key, value)
         # Commit the changes
         self._session.commit()
