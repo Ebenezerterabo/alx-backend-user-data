@@ -53,14 +53,13 @@ class DB:
     def update_user(self, user_id: int, **kwargs) -> None:
         """Update user in the database.
         """
-        try:
-            # Find the user by ID
-            user = self.find_user_by(id=user_id)
-            # Update the user's attributes
-            for key, value in kwargs.items():
-                if key not in ("id",):
-                    setattr(user, key, value)
-            # Commit the changes
-            self._session.commit()
-        except ValueError:
-            raise
+        # Find the user by ID
+        user = self.find_user_by(id=user_id)
+        # Update the user's attributes
+        for key, value in kwargs.items():
+            if key not in ("id",):
+                setattr(user, key, value)
+            if key is None:
+                raise ValueError
+        # Commit the changes
+        self._session.commit()
