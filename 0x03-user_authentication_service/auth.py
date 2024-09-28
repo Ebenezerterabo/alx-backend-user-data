@@ -48,6 +48,4 @@ class Auth:
             return False
 
         # Check if the password is correct
-        if bcrypt.checkpw(password.encode(), user.hashed_password):
-            return True
-        return False
+        return bcrypt.checkpw(password.encode('utf-8'), user.hashed_password)
