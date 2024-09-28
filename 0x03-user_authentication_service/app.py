@@ -5,12 +5,12 @@ from flask import Flask, jsonify, request
 from auth import Auth
 
 app = Flask(__name__)
+AUTH = Auth()
 
 
 @app.route('/', methods=['GET'], strict_slashes=False)
 def index():
     """ Return a message. """
-    AUTH = Auth()
     return jsonify({"message": "Bienvenue"})
 
 
@@ -24,10 +24,9 @@ def users():
         # Create a new user
         user = AUTH.register_user(email, password)
         # Return the user's ID
-        if user is None:
-            return jsonify({"email": user.email, "message": "user created"})
-    except Exception:
-        # Return an error message
+        return jsonify({"email": user.email, "message": "user created"})
+    except ValueError:
+        # Handle the case where the user already exists
         return jsonify({"message": "email already registered"}), 400
 
 
