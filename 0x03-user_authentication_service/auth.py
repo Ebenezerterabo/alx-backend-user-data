@@ -3,6 +3,7 @@
 
 import bcrypt
 from sqlalchemy.exc import NoResultFound
+from typing import Union
 
 from user import User
 from db import DB
@@ -23,7 +24,7 @@ class Auth:
         """
         self._db = DB()
 
-    def register_user(self, email: str, password: str) -> User:
+    def register_user(self, email: str, password: str) -> Union[User, None]:
         """Register a new user.
         """
         try:
