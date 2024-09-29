@@ -63,7 +63,7 @@ def logout():
     # Destroy the session
     AUTH.destroy_session(user_id)
     # Return a response
-    return redirect("/", methods=['GET']), 302
+    return redirect("/")
 
 
 if __name__ == "__main__":
