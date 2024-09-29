@@ -87,13 +87,13 @@ def get_reset_password_token():
     # Get the form data from the request
     email = request.form.get('email')
     # Check if the email is valid
-    if not AUTH.valid_login(email):
+    try:
+        # Get the reset token
+        reset_token = AUTH.get_reset_password_token(email)
+        # Return the reset token
+        return jsonify({"email": email, "reset_token": reset_token}), 200
+    except Exception:
         abort(403)
-    # Get the reset token
-    reset_token = AUTH.get_reset_password_token(email)
-    # Return the reset token
-    return jsonify({"email": email, "reset_token": reset_token}), 200
-
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
