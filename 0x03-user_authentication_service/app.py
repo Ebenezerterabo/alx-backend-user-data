@@ -77,6 +77,8 @@ def profile():
     if user_id:
         # Return the user profile
         return jsonify({"email": user_id.email}), 200
+    else:
+        abort(403)
 
 
 if __name__ == "__main__":
