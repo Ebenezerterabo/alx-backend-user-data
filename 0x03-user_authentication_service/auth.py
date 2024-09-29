@@ -128,4 +128,3 @@ class Auth:
         # Commit the changes
         self._db._session.commit()
         user.reset_token = None
-        return None
