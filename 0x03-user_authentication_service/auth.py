@@ -113,3 +113,17 @@ class Auth:
         self._db.update_user(user.id, reset_token=reset_token)
         # Return the reset token
         return reset_token
+
+    def update_password(reset_token: str, password: str) -> None:
+        """Update a user's password.
+        """
+        # Find the user by reset token
+        user = self._db.find_user_by(reset_token=reset_token)
+        # Check if the user exists
+        if user is None:
+            raise ValueError
+        # Update the user's password
+        self._db.update_user(user.id, hashed_password=_hash_password(password))
+        # Commit the changes
+        self._db._session.commit()
+        reset_token = None
