@@ -121,7 +121,7 @@ class Auth:
             # Find the user by reset token
             user = self._db.find_user_by(reset_token=reset_token)
         # Check if the user exists
-        except NoResultFound:
+        except Exception:
             raise ValueError
         else:
             # Update the user's password
