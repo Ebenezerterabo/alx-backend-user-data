@@ -118,13 +118,14 @@ class Auth:
         """Update a user's password.
         """
         try:
-        # Find the user by reset token
+            # Find the user by reset token
             user = self._db.find_user_by(reset_token=reset_token)
         # Check if the user exists
         except NoResultFound:
             raise ValueError
-        # Update the user's password
-        user.hashed_password = _hash_password(password)
-        user.reset_token = None
+        else:
+            # Update the user's password
+            user.hashed_password = _hash_password(password)
+            user.reset_token = None
 
-        return None
+            return None
